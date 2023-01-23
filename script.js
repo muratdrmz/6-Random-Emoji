@@ -1,7 +1,6 @@
 const btnEl=document.getElementById('btn');
 const emojiNameEl=document.getElementById('emoji-name');
-const urlApi =
-  "https://emoji-api.com/emojis?access_key=144c06804630782f3204c22064aa4d516a3ef2e7";
+const urlApi ="https://emoji-api.com/emojis?access_key=144c06804630782f3204c22064aa4d516a3ef2e7";
 
 const emoji=[];
 
@@ -9,17 +8,23 @@ async function getEmoji(){
    try {
     const response=await fetch(urlApi);
     const data=await response.json();
-    console.log(data);
+    // console.log(data);
     for(let i=0; i<1500;i++){
-     emoji.push = {
+     emoji.push(
+      {
        emojiname: data[i].unicodeName,
        emojipic:data[i].character
-     };
+     });     
     }
    } catch (error) {
     console.log(error);
    }
-   console.log(emoji);
-}
+   // console.log(emoji);
+};
+getEmoji();
 
-btnEl.addEventListener('click',getEmoji)
+btnEl.addEventListener('click',()=>{
+ const randomNum=Math.floor(Math.random()*emoji.length)
+ btnEl.innerText=emoji[randomNum].emojipic;
+ emojiNameEl.innerText=emoji[randomNum].emojiname
+});
